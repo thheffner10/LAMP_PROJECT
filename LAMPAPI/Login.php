@@ -5,42 +5,34 @@ ini_set('display_errors', 1);
 
 header("Content-Type: application/json");
 
-// --- TABLE & COLUMN NAMES (easy to map to frontend) ---
-$tableUsers = "Users";
-$colId = "id";
-$colFirstName = "firstName";
-$colLastName = "lastName";
-$colLogin = "login";
-$colPassword = "password";
-
-// --- READ JSON FROM POST ---
+// Read json
 $data = json_decode(file_get_contents('php://input'), true);
-$inputLogin = $data['login'] ?? '';
+$inputUsername = $data['username'] ?? '';
 $inputPassword = $data['password'] ?? '';
 
-// --- PREPARE SELECT QUERY ---
-$stmt = $conn->prepare("SELECT $colId, $colFirstName, $colLastName, $colPassword FROM $tableUsers WHERE $colLogin = ?");
-$stmt->bind_param("s", $inputLogin);
+// Prepare select query
+$stmt = $conn->prepare("SELECT user_ID, firstName, lastName, username, password FROM Users WHERE username = ?");
+$stmt->bind_param("s", $inputUsername);
 $stmt->execute();
 $result = $stmt->get_result();
 
-// --- CHECK IF USER EXISTS ---
+// Check if the user exists or not
 if ($result->num_rows === 0) {
     echo json_encode(["success" => false, "message" => "User not found"]);
     exit;
 }
 
-// --- VERIFY PASSWORD ---
+// Verify password
 $user = $result->fetch_assoc();
-if (password_verify($inputPassword, $user[$colPassword])) {
+if (password_verify($inputPassword, $user['password'])) {
     // Remove password before sending back
-    unset($user[$colPassword]);
+    unset($user['password']);
     echo json_encode(["success" => true, "user" => $user]);
 } else {
     echo json_encode(["success" => false, "message" => "Invalid password"]);
 }
 
-// --- CLOSE CONNECTIONS ---
+// Close connections
 $stmt->close();
 $conn->close();
 ?>

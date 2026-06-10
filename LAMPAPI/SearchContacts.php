@@ -9,17 +9,17 @@ header("Content-Type: application/json");
 $data = json_decode(file_get_contents('php://input'), true);
 
 // Grab the search term safely
-$searchTerm = $data['searchTerm'] ?? '';
-$userId     = $data['userId'] ?? ''; // assume your frontend sends the logged-in user's id
+$searchTerm = $data['search'] ?? '';
+$userId     = $data['userId'] ?? '';
 
 // Prepare SQL with LIKE for search
 $stmt = $conn->prepare(
-    "SELECT id, firstName, lastName, phone, email 
+    "SELECT contact_ID as id, first_name as firstName, last_name as lastName, phone, email 
      FROM Contacts 
-     WHERE userId = ? AND (firstName LIKE ? OR lastName LIKE ? OR phone LIKE ? OR email LIKE ?)"
+     WHERE user_ID = ? AND (first_name LIKE ? OR last_name LIKE ? OR phone LIKE ? OR email LIKE ?)"
 );
 
-// Add wildcards for LIKE
+// Format search query for partial matches
 $likeTerm = "%$searchTerm%";
 $stmt->bind_param("issss", $userId, $likeTerm, $likeTerm, $likeTerm, $likeTerm);
 
@@ -33,7 +33,7 @@ $contacts = $result->fetch_all(MYSQLI_ASSOC);
 // Return JSON
 echo json_encode([
     "success" => true,
-    "contacts" => $contacts
+    "results" => $contacts
 ]);
 
 // Close connections

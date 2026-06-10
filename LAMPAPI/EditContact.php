@@ -8,7 +8,7 @@ header("Content-Type: application/json");
 // Read JSON input
 $data = json_decode(file_get_contents('php://input'), true);
 
-// Variables (easy to map to frontend)
+// Variables
 $id        = $data['id'] ?? 0;
 $userId    = $data['userId'] ?? 0;
 $firstName = $data['firstName'] ?? '';
@@ -25,11 +25,11 @@ if (!$id || !$userId) {
     exit;
 }
 
-// UPDATE query (important: userId protects ownership)
+// Query for update
 $stmt = $conn->prepare(
     "UPDATE Contacts 
-     SET firstName = ?, lastName = ?, phone = ?, email = ?
-     WHERE id = ? AND userId = ?"
+     SET first_name = ?, last_name = ?, phone = ?, email = ?
+     WHERE contact_ID = ? AND user_ID = ?"
 );
 
 $stmt->bind_param("ssssii", $firstName, $lastName, $phone, $email, $id, $userId);

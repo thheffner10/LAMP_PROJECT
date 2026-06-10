@@ -9,11 +9,11 @@ header("Content-Type: application/json");
 $data = json_decode(file_get_contents('php://input'), true);
 
 // Grab variables safely
-$contactId = $data['id'] ?? 0;    // id of the contact to delete
-$userId    = $data['userId'] ?? 0; // your session/user id
+$contactId = $data['id'] ?? 0;
+$userId    = $data['userId'] ?? 0;
 
 // Prepare SQL
-$stmt = $conn->prepare("DELETE FROM Contacts WHERE id=? AND userId=?");
+$stmt = $conn->prepare("DELETE FROM Contacts WHERE contact_ID=? AND user_ID=?");
 $stmt->bind_param("ii", $contactId, $userId);
 
 // Execute

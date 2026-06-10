@@ -5,17 +5,17 @@ ini_set('display_errors', 1);
 
 header("Content-Type: application/json");
 
-// --- READ JSON INPUT ---
+// Read input in JSON format
 $data = json_decode(file_get_contents('php://input'), true);
 
-// --- VARIABLES (easy to match frontend later) ---
+// Variables for modification
 $userId    = $data['userId'] ?? 0;
 $firstName = $data['firstName'] ?? '';
 $lastName  = $data['lastName'] ?? '';
 $phone     = $data['phone'] ?? '';
 $email     = $data['email'] ?? '';
 
-// --- BASIC VALIDATION ---
+// Validation
 if (!$userId || !$firstName || !$lastName) {
     echo json_encode([
         "success" => false,
@@ -24,9 +24,9 @@ if (!$userId || !$firstName || !$lastName) {
     exit;
 }
 
-// --- INSERT CONTACT ---
+// Insert Contact
 $stmt = $conn->prepare(
-    "INSERT INTO Contacts (userId, firstName, lastName, phone, email)
+    "INSERT INTO Contacts (user_ID, first_name, last_name, phone, email)
      VALUES (?, ?, ?, ?, ?)"
 );
 
@@ -43,11 +43,11 @@ try {
 } catch (mysqli_sql_exception $e) {
     echo json_encode([
         "success" => false,
-        "message" => "Database error"
+        "message" => $e->getMessage()
     ]);
 }
 
-// --- CLEANUP ---
+// Cleanup
 $stmt->close();
 $conn->close();
 ?>
