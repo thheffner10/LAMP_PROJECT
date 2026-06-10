@@ -1,5 +1,5 @@
 const urlBase =
-    "https://URL/APPROPRIATEFOLDER";
+    "https://tncis4004.xyz/LAMPAPI";
 
 let userId =
     localStorage.getItem("userId");
@@ -111,6 +111,7 @@ function editContact(contactId)
     let payload =
     {
         id: contactId,
+	userId: userId,
 
         firstName:
             document.getElementById(
@@ -173,7 +174,8 @@ function deleteContact(contactId)
 
         body: JSON.stringify(
         {
-            id: contactId
+            id: contactId,
+	    userId: userId
         })
     })
     .then(response => response.json())
