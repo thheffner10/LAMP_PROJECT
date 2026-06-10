@@ -1,5 +1,5 @@
 const urlBase =
-    "https://URL/APPROPRIATEFOLDER";
+    "https://tncis4004.xyz/LAMPAPI";
 
 function doLogin()
 {
@@ -15,7 +15,7 @@ function doLogin()
 
     let payload =
     {
-        login: login,
+        username: login,
         password: password
     };
 
@@ -34,16 +34,16 @@ function doLogin()
     .then(response => response.json())
     .then(data =>
     {
-        if(data.id > 0)
+        if(data.success)
         {
             localStorage.setItem(
                 "userId",
-                data.id
+                data.user.user_ID
             );
 
             localStorage.setItem(
                 "firstName",
-                data.firstName
+                data.user.firstName
             );
 
             window.location.href =
@@ -54,7 +54,7 @@ function doLogin()
             document.getElementById(
                 "loginResult"
             ).innerHTML =
-                "Invalid Username/Password";
+                data.message;
         }
     })
     .catch(error =>
