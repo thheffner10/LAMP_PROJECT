@@ -1,7 +1,3 @@
-/* =========================
-   GENERAL PAGE STYLING
-   ========================= */
-
 body
 {
     margin: 0;
@@ -13,18 +9,16 @@ body
     color: #333;
 }
 
-/* =========================
-   LOGIN PAGE BACKGROUND
-   ========================= */
 
 .login-page
 {
+background-image: url('background.png');
     background:
         linear-gradient(
             rgba(0,0,0,0.45),
             rgba(0,0,0,0.45)
         ),
-        url("https://startinfinity.s3.us-east-2.amazonaws.com/production/blog/post/44/main/FNEscjUeKDnGvdgDtKlA7PfRlQHsDNXEokDUYfzY.png");
+        url("background.png");
 
     background-size: cover;
     background-position: center;
@@ -34,9 +28,6 @@ body
     min-height: 100vh;
 }
 
-/* =========================
-   HEADER BAR
-   ========================= */
 
 .topBar
 {
@@ -60,9 +51,6 @@ body
     margin: 0;
 }
 
-/* =========================
-   CONTENT CARDS
-   ========================= */
 
 .card
 {
@@ -82,10 +70,6 @@ body
         0 4px 12px rgba(0,0,0,.08);
 }
 
-/* =========================
-   LOGIN / REGISTER CARD
-   ========================= */
-
 .login-container
 {
     width: 450px;
@@ -95,13 +79,8 @@ body
     background: rgba(255,255,255,0.92);
 
     backdrop-filter: blur(5px);
-
-    -webkit-backdrop-filter: blur(5px);
 }
 
-/* =========================
-   HEADINGS
-   ========================= */
 
 h1
 {
@@ -114,10 +93,6 @@ h3
     margin-top: 0;
     color: #1e3a5f;
 }
-
-/* =========================
-   FORM INPUTS
-   ========================= */
 
 input
 {
@@ -145,9 +120,6 @@ input:focus
     border-color: #3b82f6;
 }
 
-/* =========================
-   BUTTONS
-   ========================= */
 
 button
 {
@@ -171,7 +143,6 @@ button:hover
     transform: translateY(-1px);
 }
 
-/* Primary Buttons */
 
 .card button
 {
@@ -197,7 +168,6 @@ button:hover
     background: #b91c1c;
 }
 
-/* Save Button */
 
 .action-save
 {
@@ -223,9 +193,6 @@ button:hover
     background: #b91c1c !important;
 }
 
-/* =========================
-   TABLES
-   ========================= */
 
 table
 {
@@ -262,9 +229,6 @@ tr:hover
     background: #edf4ff;
 }
 
-/* =========================
-   LINKS
-   ========================= */
 
 a
 {
@@ -277,9 +241,6 @@ a:hover
     text-decoration: underline;
 }
 
-/* =========================
-   RESPONSIVE DESIGN
-   ========================= */
 
 @media (max-width: 768px)
 {
