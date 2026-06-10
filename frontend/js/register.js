@@ -1,5 +1,5 @@
 const urlBase =
-    "https://URL/APPROPRIATEFOLDER";
+    "https://tncis4004.xyz/LAMPAPI";
 
 function doRegister()
 {
@@ -15,7 +15,7 @@ function doRegister()
                 "lastName"
             ).value,
 
-        login:
+        username:
             document.getElementById(
                 "username"
             ).value,
@@ -41,10 +41,16 @@ function doRegister()
     .then(response => response.json())
     .then(data =>
     {
-        document.getElementById(
-            "registerResult"
-        ).innerHTML =
-            "Account Created Successfully";
+        if (data.success)
+        {
+            document.getElementById("registerResult").innerHTML =
+                "Account Created Successfully";
+        }
+        else
+        {
+            document.getElementById("registerResult").innerHTML =
+                data.message;
+        }
     })
     .catch(error =>
     {
